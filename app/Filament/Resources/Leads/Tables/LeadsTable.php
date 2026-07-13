@@ -16,6 +16,7 @@ class LeadsTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->sortable()
                     ->searchable(),
                 TextColumn::make('email')
                     ->label('Email address')
@@ -23,26 +24,31 @@ class LeadsTable
                 TextColumn::make('phone')
                     ->searchable(),
                 TextColumn::make('company')
+                    ->sortable()
                     ->searchable(),
-                TextColumn::make('industry')
-                    ->searchable(),
+                TextColumn::make('industry'),
                 TextColumn::make('budget')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('source')
-                    ->searchable(),
+                TextColumn::make('source'),
                 TextColumn::make('status')
-                    ->searchable(),
+                    ->badge()
+                    ->colors([
+                        'gray' => 'new',
+                        'info' => 'contacted',
+                        'warning' => 'proposal_sent',
+                        'success' => 'won',
+                        'danger' => 'lost',
+                        'primary' => 'qualified',
+                    ]),
                 TextColumn::make('score')
-                    ->numeric()
-                    ->sortable(),
+                    ->numeric(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
                     ->dateTime()
-                    ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
